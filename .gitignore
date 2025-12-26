@@ -46,6 +46,7 @@ dev.log
 test
 prompt
 
-server.logapps/chronos-backoffice/.next
+server.log
 apps/chronos-backoffice/.next/
+dev_output.log
 .next/

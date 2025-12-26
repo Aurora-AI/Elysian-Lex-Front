@@ -1,0 +1,10 @@
+{
+  "name": "aurora-ecosystem",
+  "private": true,
+  "workspaces": ["apps/*", "libs/*"],
+  "scripts": {
+    "dev:chronos": "npm --prefix apps/chronos-backoffice run dev",
+    "build:chronos": "npm --prefix apps/chronos-backoffice run build",
+    "test:chronos": "npm --prefix apps/chronos-backoffice run test:survival"
+  }
+}

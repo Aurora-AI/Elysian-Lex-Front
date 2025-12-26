@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // CRM Relations
+  clients   Client[]
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  name        String
+  email       String?  @unique
+  phone       String?
+  company     String?
+  status      String   @default("active") // active, inactive, prospect
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversations Conversation[]
+  analyses    Analysis[]
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  content   String   // The full conversation text
+  source    String?  // email, chat, call, etc.
+  metadata  String?  // JSON string for additional metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  analysis  Analysis?
+}
+
+model Analysis {
+  id                  String   @id @default(cuid())
+  mainIntent          String   // Primary intent of the conversation
+  keyEntities         String   // JSON string containing extracted entities
+  nextBestAction      String   // AI-suggested next action
+  actionStatus        String   @default("pending") // pending, approved, executed, discarded
+  confidence          Float?   // AI confidence score (0-1)
+  reasoning           String?  // AI reasoning for the suggestion
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Relations
+  conversationId      String   @unique
+  conversation        Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  clientId            String
+  client              Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}

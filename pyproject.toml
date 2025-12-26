@@ -1,0 +1,21 @@
+
+
+[tool.poetry]
+name = "elysian-lex-engine"
+version = "0.1.0"
+description = "Motor Cognitivo do Elysian Lex (Soberania Local)"
+authors = ["Aurora AI"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+fastapi = "^0.110.0"
+uvicorn = "^0.29.0"
+chromadb = "^0.4.22"
+langchain = "^0.1.0"
+pydantic = "^2.0.0"
+sentence-transformers = "^2.2.2"
+python-multipart = "^0.0.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,15 @@
+
+> dev:chronos
+> npm --prefix apps/chronos-backoffice run dev
+
+
+> @aurora/chronos-backoffice@1.0.0-genesis dev
+> next dev -p 3000
+
+   ▲ Next.js 14.1.0
+   - Local:        http://localhost:3000
+
+ ✓ Ready in 2.5s
+ ✓ Compiled /api/health in 448ms (20 modules)
+ ✓ Compiled /api/projects in 221ms (40 modules)
+[?25h
